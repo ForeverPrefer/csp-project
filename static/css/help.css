@@ -1,0 +1,720 @@
+/* help.css - 帮助中心选项卡样式 */
+
+/* 响应式断点 */
+@media screen and (max-width: 768px) {
+    /* 主要容器 */
+    .help-container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    /* 帮助中心标题区域 */
+    .help-header {
+        padding: 25px 20px;
+        margin-bottom: 20px;
+    }
+
+    .help-title-section h1 {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .help-subtitle {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    /* 搜索区域 */
+    .help-search {
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .search-input {
+        font-size: 1.1rem;
+        padding: 12px 15px;
+    }
+
+    .search-btn {
+        padding: 12px 20px;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+
+    /* 快速访问卡片 */
+    .quick-access {
+        margin-bottom: 30px;
+    }
+
+    .quick-access h2 {
+        font-size: 1.5rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .quick-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .quick-card {
+        padding: 20px;
+    }
+
+    .quick-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .quick-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .quick-card p {
+        font-size: 1rem;
+    }
+
+    /* 选项卡主容器 */
+    .tabs-container {
+        margin-bottom: 30px;
+        border-radius: 12px;
+    }
+
+    /* 选项卡头部 */
+    .tabs-header {
+        flex-direction: column;
+        border-bottom: none;
+    }
+
+    .tab-btn {
+        padding: 18px 15px;
+        font-size: 1.2rem;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+
+    .tab-btn.active::after {
+        bottom: 0;
+        left: 0;
+        right: auto;
+        width: 4px;
+        height: 100%;
+    }
+
+    /* 选项卡内容区域 */
+    .tab-content {
+        padding: 25px 20px;
+    }
+
+    /* FAQ样式 */
+    .faq-list {
+        padding: 0 10px;
+    }
+
+    .faq-question {
+        padding: 18px 20px;
+        font-size: 1.2rem;
+    }
+
+    .faq-answer {
+        padding: 20px;
+        font-size: 1rem;
+    }
+
+    /* 提示框样式 */
+    .tip-box, .warning-box, .info-box {
+        padding: 15px;
+        margin: 15px 0;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    /* 第三方登录帮助 */
+    .social-login-help {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .social-item {
+        width: 90px;
+        padding: 15px;
+    }
+
+    /* 联系信息 */
+    .contact-section {
+        padding: 30px 20px;
+    }
+
+    .contact-header h2 {
+        font-size: 2rem;
+    }
+
+    .contact-card p {
+        font-size: 1.2rem;
+        padding: 0 10px;
+    }
+
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .contact-item {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .contact-item i {
+        margin-right: 0;
+        margin-bottom: 10px;
+        font-size: 2rem;
+    }
+
+    .emergency-tip {
+        padding: 15px 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .emergency-tip p {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .help-title-section h1 {
+        font-size: 1.6rem;
+    }
+
+    .quick-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-btn {
+        font-size: 1rem;
+        padding: 15px 20px;
+    }
+
+    .social-login-help {
+        gap: 10px;
+    }
+
+    .social-item {
+        width: 80px;
+        padding: 12px;
+    }
+
+    .contact-item {
+        padding: 15px;
+    }
+}
+
+/* 主要容器 */
+.help-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* 帮助中心标题区域 */
+.help-header {
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(135, 206, 235, 0.1), rgba(30, 144, 255, 0.05));
+    border: 1px solid rgba(135, 206, 235, 0.2);
+}
+
+.help-title-section h1 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.help-title-section h1 i {
+    color: #1E90FF;
+}
+
+.help-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* 搜索区域 */
+.help-search {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid #87CEEB;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #1E90FF;
+    box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.2);
+}
+
+.search-btn {
+    background: #87CEEB;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 25px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: #1E90FF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
+}
+
+/* 快速访问卡片 */
+.quick-access {
+    margin-bottom: 50px;
+}
+
+.quick-access h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-access h2 i {
+    color: #87CEEB;
+}
+
+.quick-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.quick-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.quick-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(135, 206, 235, 0.2);
+    border-color: #87CEEB;
+}
+
+.quick-icon {
+    font-size: 3rem;
+    color: #87CEEB;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: rgba(135, 206, 235, 0.1);
+    border-radius: 50%;
+}
+
+.quick-card h3 {
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.quick-card p {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+/* 选项卡主容器 */
+.tabs-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+}
+
+/* 选项卡头部 */
+.tabs-header {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    padding: 0;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 22px 20px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 500;
+    border-right: 1px solid #e9ecef;
+}
+
+.tab-btn:last-child {
+    border-right: none;
+}
+
+.tab-btn:hover {
+    background: rgba(135, 206, 235, 0.1);
+    color: #1E90FF;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #1E90FF;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #87CEEB;
+}
+
+.tab-btn i {
+    font-size: 1.3rem;
+}
+
+/* 选项卡内容区域 */
+.tab-content {
+    display: none;
+    padding: 40px;
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* FAQ样式 */
+.faq-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.faq-item:hover {
+    border-color: #87CEEB;
+    box-shadow: 0 4px 15px rgba(135, 206, 235, 0.1);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 22px 25px;
+    background: #f8f9fa;
+    border: none;
+    text-align: left;
+    font-size: 1.4rem;
+    color: #2c3e50;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.faq-question:hover {
+    background: rgba(135, 206, 235, 0.08);
+}
+
+.faq-answer {
+    padding: 25px;
+    background: white;
+    display: none;
+    line-height: 1.7;
+    animation: slideDown 0.3s ease;
+    border-top: 1px solid #f0f0f0;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; max-height: 0; padding-top: 0; padding-bottom: 0; }
+    to { opacity: 1; max-height: 500px; }
+}
+
+.faq-answer ol, .faq-answer ul {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.faq-answer li {
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.faq-answer strong {
+    color: #1E90FF;
+}
+
+/* 提示框样式 */
+.tip-box, .warning-box, .info-box {
+    padding: 18px;
+    margin: 20px 0;
+    border-radius: 10px;
+    border-left: 5px solid;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.tip-box {
+    background: #e8f4fd;
+    border-left-color: #87CEEB;
+    color: #2c5282;
+}
+
+.tip-box strong {
+    color: #1E90FF;
+}
+
+.warning-box {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+    color: #7b341e;
+}
+
+.warning-box strong {
+    color: #d97706;
+}
+
+.info-box {
+    background: #e2f0fb;
+    border-left-color: #1E90FF;
+    color: #2c5282;
+}
+
+.info-box strong {
+    color: #1E90FF;
+}
+
+.tip-box i, .warning-box i, .info-box i {
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+/* 第三方登录帮助 */
+.social-login-help {
+    display: flex;
+    gap: 25px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.social-item {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    width: 110px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.social-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-color: #87CEEB;
+}
+
+.social-item i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.social-item:nth-child(1) i { color: #07C160; }
+.social-item:nth-child(2) i { color: #12B7F5; }
+.social-item:nth-child(3) i { color: #E6162D; }
+
+/* 联系信息 */
+.contact-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+}
+
+.contact-header {
+    margin-bottom: 30px;
+}
+
+.contact-header i {
+    font-size: 3.5rem;
+    color: #1E90FF;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.contact-header h2 {
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.contact-card p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-info {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.contact-item:hover {
+    border-color: #87CEEB;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(135, 206, 235, 0.15);
+    background: white;
+}
+
+.contact-item i {
+    font-size: 1.8rem;
+    margin-right: 20px;
+    color: #87CEEB;
+    margin-top: 5px;
+}
+
+.contact-item h4 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 1.4rem;
+}
+
+.contact-item p {
+    margin: 0;
+    color: #34495e;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.contact-item small {
+    display: block;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.emergency-tip {
+    background: linear-gradient(135deg, #fff3cd, #ffedb3);
+    border-left: 5px solid #ffc107;
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.emergency-tip i {
+    font-size: 2rem;
+    color: #d97706;
+}
+
+.emergency-tip p {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.6;
+}
+
+.emergency-tip strong {
+    color: #b45309;
+}
+

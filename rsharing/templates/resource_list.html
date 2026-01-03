@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}CSP校园资源分享平台 - {{ resource_title }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resource_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/self.css' %}">  <!-- 添加个人中心的CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- 隐藏元素：用于存储轮播图初始索引，解决JS中直接使用Django模板变量的编辑器语法提示问题
+     data-index属性值由后端视图传递的carousel_index变量决定，默认值为1 -->
+<div id="carousel-index" data-index="{{ carousel_index|default:1 }}" style="display: none;"></div>
+
+<!-- 轮播图区域：展示4类资源的入口，点击可跳转到对应资源列表页 -->
+<div class="carousel-container">
+    <div class="carousel">
+        <!-- 轮播项1：文档资料 -->
+        <div class="carousel-item" data-index="1">
+            <a href="{% url 'rsharing:resource_list' '文档资料' %}" class="carousel-link">
+                <img src="{% static 'img/a1.jpg' %}" alt="文档资料">
+                <div class="carousel-caption">
+                    <h3>文档资料</h3>
+                    <p>共享学习文档、笔记、资料等</p>
+                </div>
+            </a>
+        </div>
+        <!-- 轮播项2：软件工具 -->
+        <div class="carousel-item" data-index="2">
+            <a href="{% url 'rsharing:resource_list' '软件工具' %}" class="carousel-link">
+                <img src="{% static 'img/a2.png' %}" alt="软件工具">
+                <div class="carousel-caption">
+                    <h3>软件工具</h3>
+                    <p>实用的软件和工具资源</p>
+                </div>
+            </a>
+        </div>
+        <!-- 轮播项3：学习教程 -->
+        <div class="carousel-item" data-index="3">
+            <a href="{% url 'rsharing:resource_list' '学习教程' %}" class="carousel-link">
+                <img src="{% static 'img/a3.jpg' %}" alt="学习教程">
+                <div class="carousel-caption">
+                    <h3>学习教程</h3>
+                    <p>各类学习教程和课程资料</p>
+                </div>
+            </a>
+        </div>
+        <!-- 轮播项4：模板资源 -->
+        <div class="carousel-item" data-index="4">
+            <a href="{% url 'rsharing:resource_list' '模板资源' %}" class="carousel-link">
+                <img src="{% static 'img/a4.jpeg' %}" alt="模板资源">
+                <div class="carousel-caption">
+                    <h3>模板资源</h3>
+                    <p>各类文档模板和设计资源</p>
+                </div>
+            </a>
+        </div>
+        <!-- 轮播控制按钮：上一张/下一张 -->
+        <button class="carousel-control prev" onclick="moveSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-control next" onclick="moveSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <!-- 轮播指示器：点击可直接跳转到对应轮播项 -->
+        <div class="carousel-indicators">
+            <span class="indicator" onclick="currentSlide(1)"></span>
+            <span class="indicator" onclick="currentSlide(2)"></span>
+            <span class="indicator" onclick="currentSlide(3)"></span>
+            <span class="indicator" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+</div>
+
+<!-- 资源列表区域：根据当前资源类型展示对应的资源列表 -->
+<div class="resource-container">
+    <!-- 资源列表标题区域：动态显示当前资源类型的标题和描述 -->
+    <div class="resource-header1">
+        <h3>{{ resource_title }}</h3>
+        <p class="resource-subtitle">{{ resource_subtitle }}</p>
+    </div>
+
+    <!-- 资源列表网格：当有资源时展示 -->
+    {% if resources %}
+    <div class="resource-grid">
+        {% for resource in resources %}
+            <div class="resource-card">
+            <!-- 资源卡片头部：包含资源名称和类型标签 -->
+            <div class="card-header">
+                <h3 class="resource-title">
+                    <a href="{% url 'rsharing:resource_detail' resource.id %}" class="resource-title-link">
+                        {{ resource.resource_name }}
+                    </a>
+                </h3>
+                <span class="resource-badge">{{ resource.resource_type }}</span>
+            </div>
+            
+            <!-- 资源元信息：上传者、上传时间、下载次数 -->
+            <div class="resource-meta">
+                <span class="meta-item">
+                    <i class="fas fa-user"></i>
+                    {{ resource.uploader.get_display_name }}
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    {{ resource.upload_time|date:"Y-m-d H:i" }}
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-download"></i>
+                    {{ resource.download_count }} 下载
+                </span>
+            </div>
+            
+            <!-- 资源描述：如果有描述则展示 -->
+            {% if resource.resource_desc %}
+            <div class="resource-desc">
+                {{ resource.resource_desc }}
+            </div>
+            {% endif %}
+            
+            <!-- 资源操作区：下载按钮和文件大小 -->
+            <div class="resource-actions">
+                <a href="{% url 'rsharing:download' resource.id %}" class="download-btn" target="_blank">
+                    <i class="fas fa-download"></i>
+                    下载资源
+                </a>
+                <span class="file-size">
+                    {{ resource.resource_file.size|filesizeformat }}
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- 分页导航 - 使用和个人中心完全相同的样式 -->
+    {% if resources.has_other_pages %}
+    <div class="pc-pagination">
+        <div class="pc-pagination-info">
+            显示第 {{ resources.start_index }} - {{ resources.end_index }} 条，共 {{ resources.paginator.count }} 条记录
+        </div>
+        <div class="pc-pagination-controls">
+            {% if resources.has_previous %}
+                <a href="?page=1" class="pc-page-link" title="第一页">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+                <a href="?page={{ resources.previous_page_number }}" class="pc-page-link" title="上一页">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            {% else %}
+                <span class="pc-page-link disabled">
+                    <i class="fas fa-angle-double-left"></i>
+                </span>
+                <span class="pc-page-link disabled">
+                    <i class="fas fa-angle-left"></i>
+                </span>
+            {% endif %}
+
+            {% for num in resources.paginator.page_range %}
+                {% if resources.number == num %}
+                    <span class="pc-page-link active">{{ num }}</span>
+                {% elif num > resources.number|add:'-3' and num < resources.number|add:'3' %}
+                    <a href="?page={{ num }}" class="pc-page-link">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if resources.has_next %}
+                <a href="?page={{ resources.next_page_number }}" class="pc-page-link" title="下一页">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+                <a href="?page={{ resources.paginator.num_pages }}" class="pc-page-link" title="最后一页">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            {% else %}
+                <span class="pc-page-link disabled">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+                <span class="pc-page-link disabled">
+                    <i class="fas fa-angle-double-right"></i>
+                </span>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% else %}
+    <!-- 空状态：当没有资源时展示 -->
+    <div class="empty-state">
+        <i class="fas {{ empty_icon }} fa-3x"></i>
+        <h3>暂无{{ resource_title }}</h3>
+        <p>{{ empty_text }}</p>
+        <a href="{% url 'upzy:upzy' %}" class="upload-link">
+            <i class="fas fa-upload"></i>
+            上传资源
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// 从隐藏元素读取轮播图初始索引（避免在JS中直接使用Django模板变量，消除编辑器语法提示）
+const carouselIndexElement = document.getElementById('carousel-index');
+// 将读取到的索引转为数字类型（确保后续计算正确）
+const initialIndex = Number(carouselIndexElement.dataset.index);
+// 当前轮播项索引，初始化为从后端获取的索引（实现"跳转后默认显示对应轮播项"）
+let currentSlideIndex = initialIndex;
+// 自动轮播计时器
+let slideInterval;
+
+/**
+ * 显示指定索引的轮播项
+ * n - 轮播项索引
+ */
+function showSlide(n) {
+    const slides = document.getElementsByClassName("carousel-item");
+    const indicators = document.getElementsByClassName("indicator");
+    // 处理索引边界：超过最大索引回到第1项，小于1回到最后一项
+    if (n > slides.length) { currentSlideIndex = 1; }
+    if (n < 1) { currentSlideIndex = slides.length; }
+    
+    // 重置所有轮播项和指示器状态
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active"); // 移除活跃状态
+        indicators[i].classList.remove("active");
+        slides[i].style.zIndex = "1"; // 非活跃项层级设为1（底层）
+    }
+    // 激活当前轮播项和对应指示器
+    slides[currentSlideIndex - 1].classList.add("active");
+    indicators[currentSlideIndex - 1].classList.add("active");
+    slides[currentSlideIndex - 1].style.zIndex = "2"; // 活跃项层级设为2（顶层）
+}
+
+/**
+ * 切换到上一张/下一张轮播项
+ * n - 切换方向（-1：上一张，1：下一张）
+ */
+function moveSlide(n) {
+    showSlide(currentSlideIndex += n);
+    resetInterval(); // 切换后重置自动轮播计时器
+}
+
+/**
+ * 直接跳转到指定索引的轮播项
+ * n - 目标轮播项索引
+ */
+function currentSlide(n) {
+    showSlide(currentSlideIndex = n);
+    resetInterval(); // 跳转后重置自动轮播计时器
+}
+
+/**
+ * 自动轮播：切换到下一张
+ */
+function autoSlide() {
+    moveSlide(1);
+}
+
+/**
+ * 重置自动轮播计时器
+ */
+function resetInterval() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(autoSlide, 5000); // 5秒自动切换一次
+}
+
+// 页面加载完成后初始化轮播图和卡片动画
+document.addEventListener('DOMContentLoaded', function() {
+    showSlide(currentSlideIndex);
+    slideInterval = setInterval(autoSlide, 5000);
+    
+    const carousel = document.querySelector('.carousel');
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+    });
+    carousel.addEventListener('mouseleave', () => {
+        resetInterval();
+    });
+    
+    // 新添加的卡片动画代码
+    setTimeout(() => {
+        const resourceCards = document.querySelectorAll('.resource-card');
+        resourceCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, index * 100); // 交错动画效果
+        });
+    }, 500); // 等待0.5秒后开始动画
+});
+</script>
+
+{% endblock %}

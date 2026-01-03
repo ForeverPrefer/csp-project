@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}校园资源共享平台{% endblock %}
+
+{% block content %}
+<link href="{% static 'css/about.css' %}" rel="stylesheet">
+<body>
+    <!-- 顶部横幅图片 -->
+    <div class="container-fluid">
+        <div class="row">
+            <img class="img-responsive model-img" src="{% static 'img/ab1.png' %}">
+        </div>
+    </div>
+    <div class="line"></div>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- 平台介绍 -->
+            <div class="intro-card">
+                <p>
+                    欢迎来到校园资源共享平台——一个由学生创建、为学生服务的校园资源共享平台。我们诞生于一个简单的愿景：让知识流动，让资源重生，让每一个校园生活都因共享而更加便捷与丰盈。
+                </p>
+                <p>
+                    在大学校园里，我们常常面临这样的困境：崭新的教材在课程结束后被束之高阁；精心整理的笔记和复习资料随着毕业而"失传"；闲置的体育器材、生活用品在角落积灰；而新的需求却在不断产生，需要花费大量的时间和金钱去购买。
+                </p>
+                <p>
+                    校园资源共享平台正是为了解决这些问题而生。我们致力于构建一个高效、可信、互助的校园生态圈。
+                </p>
+            </div>
+            
+            <!-- 平台特色 -->
+            <div class="features-section">
+                <div class="section-title">
+                    <h2>平台特色</h2>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            📚
+                        </div>
+                        <h3>共享知识</h3>
+                        <p>上传你的课程笔记、实验报告、论文资料、项目心得，让学弟学妹们站在你的肩膀上看得更远。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            🔄
+                        </div>
+                        <h3>循环物资</h3>
+                        <p>交易或赠予闲置的教材、书籍、电子产品、生活用品，让每一件物品物尽其用，践行绿色环保的校园生活。</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            🤝
+                        </div>
+                        <h3>互助技能</h3>
+                        <p>发布你的特长，无论是编程辅导、乐器教学还是摄影约拍，用你的技能帮助他人，也发现身边的"隐藏大神"。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+{% endblock %}

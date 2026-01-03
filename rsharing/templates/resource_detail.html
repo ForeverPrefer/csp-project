@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ resource.resource_name }} - CSP校园资源分享平台{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resource_detail.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="resource-detail-container">
+    <!-- 返回按钮 -->
+    <div class="back-nav">
+        <a href="{% url 'rsharing:resource_list' resource.resource_type %}" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            返回{{ resource.resource_type }}列表
+        </a>
+    </div>
+
+    <!-- 资源详情卡片 -->
+    <div class="detail-card">
+        <!-- 资源头部 -->
+        <div class="detail-header">
+            <div class="title-section">
+                <h1 class="resource-title">{{ resource.resource_name }}</h1>
+                <span class="resource-type-badge">{{ resource.resource_type }}</span>
+            </div>
+            <div class="action-buttons">
+                <a href="{% url 'rsharing:download' resource.id %}" class="download-main-btn" target="_blank">
+                    <i class="fas fa-download"></i>
+                    立即下载
+                </a>
+            </div>
+        </div>
+
+        <!-- 资源元信息 -->
+        <div class="resource-meta-grid">
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="meta-content">
+                    <span class="meta-label">上传者</span>
+                    <span class="meta-value">{{ resource.uploader.get_display_name }}</span>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <div class="meta-content">
+                    <span class="meta-label">上传时间</span>
+                    <span class="meta-value">{{ resource.upload_time|date:"Y年m月d日 H:i" }}</span>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="meta-content">
+                    <span class="meta-label">下载次数</span>
+                    <span class="meta-value">{{ resource.download_count }} 次</span>
+                </div>
+            </div>
+            
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-file"></i>
+                </div>
+                <div class="meta-content">
+                    <span class="meta-label">文件格式</span>
+                    <span class="meta-value file-format">{{ file_info.format }}</span>
+                </div>
+            </div>
+
+            <!-- 收藏统计 -->
+            <div class="meta-item">
+                <div class="meta-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="meta-content">
+                    <span class="meta-label">收藏次数</span>
+                    <span class="meta-value">{{ resource.favorite_count }} 次</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文件信息卡片 -->
+        <div class="file-info-card">
+            <h3 class="card-title">
+                <i class="fas fa-file-alt"></i>
+                文件信息
+            </h3>
+            <div class="file-details">
+                <div class="file-detail-item">
+                    <span class="detail-label">文件名：</span>
+                    <span class="detail-value">{{ file_info.name }}</span>
+                </div>
+                <div class="file-detail-item">
+                    <span class="detail-label">文件大小：</span>
+                    <span class="detail-value">{{ file_info.size|filesizeformat }}</span>
+                </div>
+                <div class="file-detail-item">
+                    <span class="detail-label">文件格式：</span>
+                    <span class="detail-value">{{ file_info.format }} 文件</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 资源描述 -->
+        {% if resource.resource_desc %}
+        <div class="description-card">
+            <h3 class="card-title">
+                <i class="fas fa-align-left"></i>
+                资源描述
+            </h3>
+            <div class="description-content">
+                {{ resource.resource_desc|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- 操作按钮组 -->
+        <div class="action-buttons-group">
+            <a href="{% url 'rsharing:download' resource.id %}" class="action-btn primary" target="_blank">
+                <i class="fas fa-download"></i>
+                下载资源
+            </a>
+            
+            <!-- 收藏按钮 -->
+            {% if user.is_authenticated %}
+                <button class="action-btn {% if is_favorited %}favorited{% else %}secondary{% endif %}" id="favorite-btn" onclick="toggleFavorite()">
+                    <i class="fas fa-star" id="favorite-icon"></i>
+                    <span id="favorite-text">
+                        {% if is_favorited %}已收藏{% else %}收藏资源{% endif %}
+                    </span>
+                </button>
+            {% else %}
+                <a href="{% url 'users:login' %}?next={{ request.path }}" class="action-btn secondary">
+                    <i class="fas fa-star"></i>
+                    登录后收藏
+                </a>
+            {% endif %}
+            
+            <button class="action-btn secondary" onclick="shareResource()">
+                <i class="fas fa-share-alt"></i>
+                分享资源
+            </button>
+            <a href="{% url 'rsharing:resource_list' resource.resource_type %}" class="action-btn outline">
+                <i class="fas fa-list"></i>
+                查看同类资源
+            </a>
+        </div>
+    </div>
+
+    <!-- 相关资源推荐 -->
+    <div class="related-resources">
+        <h3 class="section-title">相关资源推荐</h3>
+        <div class="related-grid">
+            {% for related in resources|slice:":3" %}
+                {% if related.id != resource.id %}
+                <div class="related-card">
+                    <div class="related-header">
+                        <h4 class="related-title">
+                            <a href="{% url 'rsharing:resource_detail' related.id %}">
+                                {{ related.resource_name }}
+                            </a>
+                        </h4>
+                        <span class="related-badge">{{ related.resource_type }}</span>
+                    </div>
+                    <div class="related-meta">
+                        <span class="related-uploader">{{ related.uploader.get_display_name }}</span>
+                        <span class="related-downloads">{{ related.download_count }} 下载</span>
+                    </div>
+                </div>
+                {% endif %}
+            {% empty %}
+                <div class="no-related">
+                    <p>暂无相关资源</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+function shareResource() {
+    alert('分享功能还在打怪中---ing...嘿嘿')
+}
+
+// 收藏功能
+function toggleFavorite() {
+    const favoriteBtn = document.getElementById('favorite-btn');
+    const favoriteIcon = document.getElementById('favorite-icon');
+    const favoriteText = document.getElementById('favorite-text');
+    const favoriteCount = document.querySelector('.meta-item:last-child .meta-value');
+    
+    // 发送AJAX请求
+    fetch('{% url "rsharing:toggle_favorite" resource.id %}', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // 更新按钮状态
+            if (data.action === 'added') {
+                favoriteBtn.classList.add('favorited');
+                favoriteBtn.classList.remove('secondary');
+                favoriteIcon.classList.add('fas');
+                favoriteIcon.classList.remove('far');
+                favoriteText.textContent = '已收藏';
+                
+                // 添加动画效果
+                favoriteIcon.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    favoriteIcon.style.transform = 'scale(1)';
+                }, 300);
+            } else {
+                favoriteBtn.classList.remove('favorited');
+                favoriteBtn.classList.add('secondary');
+                favoriteIcon.classList.add('far');
+                favoriteIcon.classList.remove('fas');
+                favoriteText.textContent = '收藏资源';
+            }
+            
+            // 更新收藏计数
+            if (favoriteCount) {
+                favoriteCount.textContent = data.favorite_count + ' 次';
+            }
+            
+            // 显示提示消息
+            showMessage(data.action === 'added' ? '已添加到收藏夹' : '已取消收藏', 'success');
+        } else {
+            showMessage('操作失败，请重试', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showMessage('网络错误，请重试', 'error');
+    });
+}
+
+// 获取CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// 显示提示消息
+function showMessage(message, type) {
+    // 创建消息元素
+    const messageEl = document.createElement('div');
+    messageEl.className = `message ${type}`;
+    messageEl.textContent = message;
+    messageEl.style.cssText = `
+        position: fixed;
+        top: 150px;
+        left: 20px;
+        padding: 12px 20px;
+        border-radius: 4px;
+        color: white;
+        font-weight: 500;
+        z-index: 1000;
+        transition: all 0.3s ease;
+        ${type === 'success' ? 'background: #87CEEB;' : 'background: #1E90FF;'}
+    `;
+    
+    document.body.appendChild(messageEl);
+    
+    // 3秒后自动消失
+    setTimeout(() => {
+        messageEl.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(messageEl);
+        }, 300);
+    }, 3000);
+}
+
+
+</script>
+{% endblock %}

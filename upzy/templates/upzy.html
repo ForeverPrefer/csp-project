@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}CSP校园资源分享平台 - 上传资源{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/upzy.css' %}">
+<div class="upload-container">
+    <div class="upload-card">
+        <!-- 添加图标和更明确的标题 -->
+        <div class="upload-header">
+            <div class="upload-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                </svg>
+            </div>
+            <h1 class="upload-title">上传校园资源</h1>
+            <p class="upload-subtitle">与同学们分享你的学习资料、工具和教程</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="resource_name" class="form-label">
+                    <span>资源名称</span>
+                    <span class="required-indicator">*</span>
+                </label>
+                <input type="text" id="resource_name" name="resource_name" class="form-input" required 
+                       placeholder="例如：Python期末复习资料、PS软件安装包、毕业论文模板">
+                <div class="form-hint">清晰明了的名称有助于其他同学快速了解资源内容</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="resource_type" class="form-label">
+                    <span>资源分类</span>
+                    <span class="required-indicator">*</span>
+                </label>
+                <select id="resource_type" name="resource_type" class="form-select" required>
+                    <option value="" disabled selected>请选择最适合的分类</option>
+                    <option value="文档资料">📄 文档资料（笔记、讲义、题库）</option>
+                    <option value="软件工具">🛠️ 软件工具（正版软件、学习工具）</option>
+                    <option value="学习教程">🎓 学习教程（视频课程、学习指南）</option>
+                    <option value="模板资源">📋 模板资源（简历、论文、PPT模板）</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="resource_file" class="form-label">
+                    <span>上传文件</span>
+                    <span class="required-indicator">*</span>
+                </label>
+                <div class="file-upload-area" id="fileUploadArea">
+                    <div class="file-upload-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#1E90FF" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                        </svg>
+                        <div class="file-upload-text">
+                            <strong>点击选择文件或拖放到此处</strong>
+                            <p>支持格式：PDF、Word、PPT、ZIP、RAR、EXE、MP4等</p>
+                            <p class="file-size-hint">最大文件限制：100MB</p>
+                        </div>
+                    </div>
+                    <input type="file" id="resource_file" name="resource_file" class="file-input" required 
+                           accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.rar,.exe,.mp4,.mp3,.jpg,.jpeg,.png,.txt">
+                </div>
+                <div class="file-selected-info" id="fileSelectedInfo" style="display: none;">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div class="file-details">
+                            <span class="file-name" id="selectedFileName"></span>
+                            <span class="file-size" id="selectedFileSize"></span>
+                        </div>
+                        <button type="button" class="file-remove-btn" id="removeFileBtn">移除</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="resource_desc" class="form-label">资源描述</label>
+                <textarea id="resource_desc" name="resource_desc" class="form-textarea" rows="5" 
+                          placeholder="请详细描述资源内容、适用场景、使用建议等信息（可选填写）&#10;&#10;示例：&#10;• 这是计算机科学导论课程的期末复习资料&#10;• 包含重点知识点总结和历年考题&#10;• 适合计算机专业大一学生使用"></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span>/500
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="upload-btn" id="submitBtn">
+                    <span class="btn-text">确认上传</span>
+                    <span class="btn-spinner" style="display: none;">
+                        <div class="spinner"></div>
+                        上传中...
+                    </span>
+                </button>
+                <div class="upload-note">
+                    <p>📢 上传即表示您同意遵守平台资源分享规范，确保资源不侵犯他人版权</p>
+                </div>
+            </div>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible">
+                        {{ message }}
+                        <button type="button" class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('resource_file');
+    const fileUploadArea = document.getElementById('fileUploadArea');
+    const fileSelectedInfo = document.getElementById('fileSelectedInfo');
+    const selectedFileName = document.getElementById('selectedFileName');
+    const selectedFileSize = document.getElementById('selectedFileSize');
+    const removeFileBtn = document.getElementById('removeFileBtn');
+    const charCount = document.getElementById('charCount');
+    const descTextarea = document.getElementById('resource_desc');
+    const submitBtn = document.getElementById('submitBtn');
+    const uploadForm = document.getElementById('uploadForm');
+    
+    // 文件上传区域交互
+    fileUploadArea.addEventListener('click', () => fileInput.click());
+    
+    fileUploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.add('drag-over');
+    });
+    
+    fileUploadArea.addEventListener('dragleave', () => {
+        fileUploadArea.classList.remove('drag-over');
+    });
+    
+    fileUploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.remove('drag-over');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileInfo();
+        }
+    });
+    
+    fileInput.addEventListener('change', updateFileInfo);
+    
+    removeFileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.value = '';
+        fileSelectedInfo.style.display = 'none';
+        fileUploadArea.style.display = 'block';
+    });
+    
+    function updateFileInfo() {
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            selectedFileName.textContent = file.name;
+            
+            // 格式化文件大小显示
+            const fileSize = file.size;
+            let sizeText;
+            if (fileSize < 1024 * 1024) {
+                sizeText = (fileSize / 1024).toFixed(1) + ' KB';
+            } else {
+                sizeText = (fileSize / (1024 * 1024)).toFixed(1) + ' MB';
+            }
+            selectedFileSize.textContent = sizeText;
+            
+            fileUploadArea.style.display = 'none';
+            fileSelectedInfo.style.display = 'block';
+        }
+    }
+    
+    // 字符计数器
+    descTextarea.addEventListener('input', function() {
+        const length = this.value.length;
+        charCount.textContent = length;
+        
+        if (length > 500) {
+            charCount.style.color = '#e74c3c';
+        } else if (length > 450) {
+            charCount.style.color = '#f39c12';
+        } else {
+            charCount.style.color = '#95a5a6';
+        }
+    });
+    
+    // 表单提交时的加载状态
+    uploadForm.addEventListener('submit', function() {
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnSpinner = submitBtn.querySelector('.btn-spinner');
+        
+        btnText.style.display = 'none';
+        btnSpinner.style.display = 'flex';
+        submitBtn.disabled = true;
+    });
+});
+</script>
+{% endblock %}

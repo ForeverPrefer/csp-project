@@ -1,0 +1,643 @@
+
+/* 响应式断点 */
+@media screen and (max-width: 1024px) {
+    .carousel-container {
+        max-width: 95%;
+        margin: 0 auto 30px;
+    }
+
+    .carousel-control.next {
+        left: auto;
+        right: 20px;
+    }
+
+    .carousel-indicators {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 15px;
+    }
+
+    .resource-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .carousel {
+        height: 300px;
+    }
+
+    .carousel-caption h3 {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .carousel-control.prev {
+        left: 10px;
+    }
+
+    .carousel-control.next {
+        right: 10px;
+    }
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+
+    .resource-container {
+        padding: 20px 15px;
+    }
+
+    .resource-header1 {
+        padding: 20px 15px;
+        margin-bottom: 30px;
+    }
+
+    .resource-header1 h3 {
+        font-size: 1.8rem;
+    }
+
+    .resource-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .resource-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .resource-card {
+        padding: 15px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .resource-title {
+        font-size: 1.3rem;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .resource-badge {
+        align-self: flex-start;
+    }
+
+    .resource-meta {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .meta-item {
+        font-size: 0.85rem;
+    }
+
+    .resource-desc {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .resource-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .pc-pagination {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .pc-pagination-info {
+        order: 2;
+    }
+
+    .pc-pagination-controls {
+        order: 1;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pc-page-link {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .carousel {
+        height: 250px;
+    }
+
+    .carousel-caption {
+        padding: 15px 10px 10px;
+    }
+
+    .carousel-caption h3 {
+        font-size: 1.1rem;
+    }
+
+    .carousel-caption p {
+        font-size: 0.8rem;
+        display: none; /* 在小屏幕上隐藏描述文字 */
+    }
+
+    .resource-header1 h3 {
+        font-size: 1.5rem;
+    }
+
+    .resource-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .resource-title {
+        font-size: 1.2rem;
+    }
+
+    .resource-desc {
+        font-size: 0.95rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    .empty-state {
+        padding: 40px 15px;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.3rem;
+    }
+
+    .upload-link {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* 移动端触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-control {
+        width: 44px;
+        height: 44px;
+    }
+
+    .resource-card:hover {
+        transform: none;
+    }
+
+    .download-btn, .pc-page-link {
+        min-height: 44px; /* 符合苹果人机界面指南的触摸目标 */
+    }
+
+    .meta-item {
+        padding: 2px 0;
+    }
+}
+
+/* 动画关键帧 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 轮播图容器动画 */
+.carousel-container {
+    max-width: 1250px;
+    margin: 0 auto 40px; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* 资源容器动画 */
+.resource-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 30px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.1s; /* 延迟0.1秒出现 */
+}
+
+/* 资源标题区域动画 */
+.resource-header1 {
+    text-align: center; 
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.2s; /* 延迟0.2秒出现 */
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(135, 206, 235, 0.1), rgba(30, 144, 255, 0.1));
+    border-radius: 15px;
+    border: 1px solid rgba(135, 206, 235, 0.3);
+}
+
+/* 资源卡片网格动画 */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+    gap: 45px;
+    margin-bottom: 40px;
+}
+
+/* 资源卡片动画 */
+.resource-card {
+    background: white;
+    border-radius: 10px; 
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.6s, transform 0.6s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* 使用JS动态添加animate类来触发动画 */
+.resource-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 为前几个卡片设置交错延迟动画 */
+.resource-card:nth-child(1) { transition-delay: 0.1s; }
+.resource-card:nth-child(2) { transition-delay: 0.2s; }
+.resource-card:nth-child(3) { transition-delay: 0.3s; }
+.resource-card:nth-child(4) { transition-delay: 0.4s; }
+.resource-card:nth-child(5) { transition-delay: 0.5s; }
+.resource-card:nth-child(6) { transition-delay: 0.6s; }
+.resource-card:nth-child(7) { transition-delay: 0.7s; }
+.resource-card:nth-child(8) { transition-delay: 0.8s; }
+
+/* 空状态动画 */
+.empty-state {
+    text-align: center; 
+    padding: 60px 20px;
+    color: #666;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+}
+
+/* 分页动画 - 与个人中心保持一致 */
+.pc-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.4s;
+}
+
+/* 保持原有的其他样式不变 */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 400px; 
+    overflow: hidden; 
+    z-index: 1;
+}
+
+.carousel-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; 
+    transition: opacity 0.5s ease-in-out, z-index 0.5s ease-in-out; 
+    z-index: 1;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.carousel-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-decoration: none;
+    z-index: 3; 
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease; 
+}
+
+.carousel-item a:hover img {
+    transform: scale(1.05);
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8)); 
+    color: white; 
+    padding: 30px 20px 20px; 
+    text-align: center; 
+}
+
+.carousel-caption h3 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.carousel-caption p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9; 
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); 
+    background: rgba(255, 255, 255, 0.871); 
+    border: none; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    font-size: 18px;
+    color: #333; 
+    transition: all 0.3s ease; 
+    z-index: 10; 
+}
+
+.carousel-control:hover {
+    background: rgb(255, 255, 255); 
+    color: #007bff; 
+}
+
+.carousel-control.prev {
+    left: 20px;
+}
+
+.carousel-control.next {
+    left: 1130px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 1335px;
+    transform: translateX(-50%); 
+    display: flex;
+    gap: 10px;
+    z-index: 10; 
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; 
+    background: rgba(255,255,255,0.5); 
+    cursor: pointer;
+    transition: all 0.3s ease; 
+}
+
+.indicator.active {
+    background: rgba(255,255,255,1);
+    transform: scale(1.2); 
+}
+
+.indicator:hover {
+    background: rgba(255,255,255,0.8);
+}
+
+.resource-header1 h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.resource-subtitle {
+    color: #666;
+    font-size: 16px;
+}
+
+.resource-card:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    margin-bottom: 15px;
+}
+
+.resource-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.resource-title-link {
+    color: #6ab2fa;
+}
+
+.resource-title-link:hover {
+    color: #00aaff;
+    text-decoration: none;
+    font-size: 1.8rem;
+}
+
+.resource-badge {
+    background: #87CEEB; 
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px; 
+    font-size: 12px;
+    white-space: nowrap; 
+}
+
+.resource-meta {
+    display: flex;
+    gap: 15px; 
+    margin-bottom: 15px;
+    flex-wrap: wrap; 
+}
+
+.meta-item {
+    display: flex;
+    align-items: center; 
+    gap: 5px; 
+    font-size: 12px;
+    color: #666; 
+}
+
+.meta-item i {
+    color: #87CEEB; 
+}
+
+.resource-desc {
+    color: #555;
+    font-size: 1.2rem;
+    line-height: 1.4; 
+    margin-bottom: 15px;
+    background: #f8f9fa; 
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.resource-actions {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.download-btn {
+    background: #6ab2fa; 
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: background 0.2s; 
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+}
+
+.download-btn:hover {
+    background: #87CEEB;
+    color: white;
+    text-decoration: none;
+}
+
+.file-size {
+    font-size: 12px;
+    color: #666;
+}
+
+.empty-state i {
+    color: #ddd; 
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.upload-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
+    background: #87CEEB;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background 0.2s;
+}
+
+.upload-link:hover {
+    background: #87CEEB;
+    color: white;
+    text-decoration: none;
+}
+
+.pc-pagination-info {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.pc-pagination-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pc-page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pc-page-link:hover:not(.disabled):not(.active) {
+    background: #87CEEB;
+    color: white;
+    border-color: #87CEEB;
+}
+
+.pc-page-link.active {
+    background: #87CEEB;
+    color: white;
+    border-color: #87CEEB;
+}
+
+.pc-page-link.disabled {
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.5;
+}

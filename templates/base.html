@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <!-- 页头 -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- 左上角Logo和品牌名 -->
+                <div class="brand-section">
+                    <span class="brand-text">CSP 校园资源分享平台</span>
+                </div>
+                
+                <!-- 右上角登录注册 -->
+                <div class="auth-section">
+                    {% if user.is_authenticated %}
+                        <span class="welcome-text">
+                            欢迎, {{ user.display_name|default:user.phone }}
+                        </span>
+                        <a href="{% url 'register:logout' %}" class="auth-link">退出登录</a>
+                    {% else %}
+                        <a href="{% url 'register:register' %}" class="auth-link">登录 / 注册</a>
+                    {% endif %}
+                    <a href="{% url 'help:help' %}" class="auth-link">登录注册帮助中心</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="main-navbar">
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li class="nav-item" id="home">
+                        <a href="{% url 'home:home' %}" class="nav-link">首页</a>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown" id="rsharing">
+                        <a href="" class="nav-link">资源中心</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'rsharing:resource_list' '文档资料' %}">文档资料</a></li>
+                            <li><a href="{% url 'rsharing:resource_list' '软件工具' %}">软件工具</a></li>
+                            <li><a href="{% url 'rsharing:resource_list' '学习教程' %}">学习教程</a></li>
+                            <li><a href="{% url 'rsharing:resource_list' '模板资源' %}">模板资源</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item" id="upzy">
+                        <a href="{% url 'upzy:upzy' %}" class="nav-link">上传资源</a>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown" id="flview">
+                        <a href="" class="nav-link">分类浏览</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'flview:new' %}">最新资源</a></li>
+                            <li><a href="{% url 'flview:down' %}">热门下载</a></li>
+                            <li><a href="{% url 'flview:xz' %}">精品推荐</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown" id="self">
+                        <a href="" class="nav-link">个人中心</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'self:wdzy' %}">我的资源</a></li>
+                            <li><a href="{% url 'self:wdxz' %}">我的下载</a></li>
+                            <li><a href="{% url 'self:sc' %}">收藏夹</a></li>
+                            <li><a href="{% url 'self:sz' %}">账户设置</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item" id="about">
+                        <a href="{% url 'about:about' %}" class="nav-link">关于CSP</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="line"></div>
+    <!-- 主要内容区域 -->
+    {% block content %}
+    <!-- 子模板的内容 -->
+    {% endblock %}
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h4>校园资源分享平台</h4>
+                    <p>致力于为用户提供优质的资源分享服务</p>
+                    <div class="contact-info">
+                        <p>联系我们: 3502449120@qq.com</p>
+                        <p>电话: 152-2813-4150</p>
+                        <p>地址: 南充市顺庆区西华师范大学</p>
+                    </div>
+                    <div class="copyright">
+                        <p>&copy; 2025 资源分享平台. 版权所有.</p>
+                    </div>
+                </div>
+                <div class="footer-qrcode">
+                    <img src="{% static 'img/qr.png' %}" alt="二维码手机浏览" class="qrcode">
+                    <p>扫描二维码手机浏览</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+    $(document).ready(function() {
+        // 鼠标悬停显示下拉菜单
+        $('.nav-item.has-dropdown').hover(
+            function() {
+                $(this).find('.dropdown-menu').stop(true, true).slideDown(200);
+            },
+            function() {
+                $(this).find('.dropdown-menu').stop(true, true).slideUp(200);
+            }
+        );
+    });
+    </script>
+    <script type="text/JavaScript">
+        $('#{{activmenu}}').addClass("active");
+        $('#{{smenu}}').addClass("active");
+    </script>
+</body>
+</html>

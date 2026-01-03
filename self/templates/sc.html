@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}收藏夹 - CSP校园资源分享平台{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/self.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="pc-container">
+    <!-- 侧边栏导航 -->
+    <div class="pc-sidebar">
+        <div class="pc-user-profile">
+            <div class="pc-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="pc-user-info">
+                <h3>{{ user.get_display_name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        
+        <nav class="pc-side-nav">
+            <a href="{% url 'self:wdzy' %}" class="pc-nav-item {% if current_section == 'my_resources' %}active{% endif %}">
+                <i class="fas fa-cloud-upload-alt"></i>
+                我的资源
+                <span class="pc-count-badge">{{ user.resource_set.count }}</span>
+            </a>
+            <a href="{% url 'self:wdxz' %}" class="pc-nav-item {% if current_section == 'download_history' %}active{% endif %}">
+                <i class="fas fa-download"></i>
+                我的下载
+                <span class="pc-count-badge">{{ user.downloadhistory_set.count }}</span>
+            </a>
+            <a href="{% url 'self:sc' %}" class="pc-nav-item {% if current_section == 'favorites' %}active{% endif %}">
+                <i class="fas fa-star"></i>
+                收藏夹
+                <span class="pc-count-badge">{{ user.favorite_set.count }}</span>
+            </a>
+            <a href="{% url 'self:sz' %}" class="pc-nav-item {% if current_section == 'account_settings' %}active{% endif %}">
+                <i class="fas fa-cog"></i>
+                账户设置
+            </a>
+        </nav>
+    </div>
+    
+    <div class="pc-main-content">
+        <div class="pc-content-header">
+            <h1>收藏夹</h1>
+            <p>您收藏的资源列表</p>
+        </div>
+
+        {% if favorites %}
+        <div class="pc-favorites-grid">
+            {% for favorite in favorites %}
+            <div class="pc-favorite-card">
+                <div class="pc-resource-header">
+                    <h3 class="pc-resource-title">
+                        <a href="{% url 'rsharing:resource_detail' favorite.resource.id %}">
+                            {{ favorite.resource.resource_name }}
+                        </a>
+                    </h3>
+                    <span class="pc-resource-type">{{ favorite.resource.resource_type }}</span>
+                </div>
+                
+                <div class="pc-resource-meta">
+                    <div class="pc-meta-item">
+                        <i class="fas fa-user"></i>
+                        {{ favorite.resource.uploader.get_display_name }}
+                    </div>
+                    <div class="pc-meta-item">
+                        <i class="fas fa-download"></i>
+                        {{ favorite.resource.download_count }} 下载
+                    </div>
+                    <div class="pc-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        收藏于 {{ favorite.created_at|date:"Y-m-d" }}
+                    </div>
+                </div>
+                
+                {% if favorite.resource.resource_desc %}
+                <div class="pc-resource-desc">
+                    {{ favorite.resource.resource_desc|truncatewords:15 }}
+                </div>
+                {% endif %}
+                
+                <div class="pc-favorite-actions">
+                    <a href="{% url 'rsharing:resource_detail' favorite.resource.id %}" class="pc-btn pc-btn-primary">
+                        查看详情
+                    </a>
+                    <button class="pc-btn pc-btn-outline pc-unfavorite-btn" data-resource-id="{{ favorite.resource.id }}">
+                        取消收藏
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 分页导航 -->
+        {% if favorites.has_other_pages %}
+        <div class="pc-pagination">
+            <div class="pc-pagination-info">
+                显示第 {{ favorites.start_index }} - {{ favorites.end_index }} 条，共 {{ favorites.paginator.count }} 条记录
+            </div>
+            <div class="pc-pagination-controls">
+                {% if favorites.has_previous %}
+                    <a href="?page=1" class="pc-page-link" title="第一页">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                    <a href="?page={{ favorites.previous_page_number }}" class="pc-page-link" title="上一页">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% else %}
+                    <span class="pc-page-link disabled">
+                        <i class="fas fa-angle-double-left"></i>
+                    </span>
+                    <span class="pc-page-link disabled">
+                        <i class="fas fa-angle-left"></i>
+                    </span>
+                {% endif %}
+
+                {% for num in favorites.paginator.page_range %}
+                    {% if favorites.number == num %}
+                        <span class="pc-page-link active">{{ num }}</span>
+                    {% elif num > favorites.number|add:'-3' and num < favorites.number|add:'3' %}
+                        <a href="?page={{ num }}" class="pc-page-link">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if favorites.has_next %}
+                    <a href="?page={{ favorites.next_page_number }}" class="pc-page-link" title="下一页">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="?page={{ favorites.paginator.num_pages }}" class="pc-page-link" title="最后一页">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                {% else %}
+                    <span class="pc-page-link disabled">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                    <span class="pc-page-link disabled">
+                        <i class="fas fa-angle-double-right"></i>
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="pc-empty-state">
+            <i class="fas fa-star"></i>
+            <h3>暂无收藏</h3>
+            <p>您还没有收藏任何资源</p>
+            <a href="{% url 'rsharing:resource_list' '文档资料' %}" class="pc-btn pc-btn-primary">
+                去发现资源
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+// 取消收藏功能
+document.addEventListener('DOMContentLoaded', function() {
+    const unfavoriteButtons = document.querySelectorAll('.pc-unfavorite-btn');
+    
+    unfavoriteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const resourceId = this.getAttribute('data-resource-id');
+            const card = this.closest('.pc-favorite-card');
+            
+            fetch(`/rsharing/resource/${resourceId}/favorite/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.remove();
+                        // 如果最后一个收藏被移除，显示空状态
+                        if (document.querySelectorAll('.pc-favorite-card').length === 0) {
+                            location.reload();
+                        }
+                    }, 300);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('操作失败，请重试');
+            });
+        });
+    });
+    
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+{% endblock %}

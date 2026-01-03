@@ -1,0 +1,647 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}登录帮助 - CSP校园资源分享平台{% endblock %}
+
+{% block content %}
+<link href="{% static 'css/help.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="help-container">
+    <!-- 帮助中心标题 -->
+    <div class="help-header">
+        <div class="help-title-section">
+            <h1><i class="fas fa-sign-in-alt"></i> 登录注册帮助</h1>
+            <p class="help-subtitle">登录注册常见问题解答，快速解决账户问题</p>
+        </div>
+        <div class="help-search">
+            <input type="text" placeholder="搜索登录问题..." class="search-input" id="login-help-search">
+            <button class="search-btn" onclick="searchLoginHelp()"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <!-- 快速访问卡片 -->
+    <div class="quick-access">
+        <h2><i class="fas fa-bolt"></i> 快速问题直达</h2>
+        <div class="quick-cards">
+            <div class="quick-card" onclick="switchTab('register')">
+                <div class="quick-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>如何注册账户？</h3>
+                <p>注册流程指导</p>
+            </div>
+            
+            <div class="quick-card" onclick="switchTab('login')">
+                <div class="quick-icon">
+                    <i class="fas fa-sign-in-alt"></i>
+                </div>
+                <h3>无法登录？</h3>
+                <p>登录问题解决</p>
+            </div>
+            
+            <div class="quick-card" onclick="switchTab('password')">
+                <div class="quick-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>忘记密码？</h3>
+                <p>密码重置方法</p>
+            </div>
+            
+            <div class="quick-card" onclick="switchTab('phone')">
+                <div class="quick-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>手机号问题</h3>
+                <p>手机号相关疑问</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 选项卡容器 -->
+    <div class="tabs-container">
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="register">
+                <i class="fas fa-user-plus"></i>
+                注册问题
+            </button>
+            <button class="tab-btn" data-tab="login">
+                <i class="fas fa-sign-in-alt"></i>
+                登录问题
+            </button>
+            <button class="tab-btn" data-tab="password">
+                <i class="fas fa-lock"></i>
+                密码问题
+            </button>
+            <button class="tab-btn" data-tab="phone">
+                <i class="fas fa-mobile-alt"></i>
+                手机号问题
+            </button>
+        </div>
+
+        <!-- 注册问题选项卡 -->
+        <div class="tab-content active" id="register-tab">
+            <div class="faq-list">
+                <!-- Q1: 如何注册 -->
+                <div class="faq-item" id="register-faq">
+                    <button class="faq-question">
+                        <span>Q: 如何注册CSP平台账户？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 注册步骤如下：</strong></p>
+                        <ol>
+                            <li>点击右上角的"登录/注册"按钮</li>
+                            <li>在登录页面切换到"注册"标签页</li>
+                            <li>填写以下必填信息：
+                                <ul>
+                                    <li>手机号（11位数字）</li>
+                                    <li>邮箱地址</li>
+                                    <li>密码（至少8位，包含字母和数字）</li>
+                                </ul>
+                            </li>
+                            <li>可选填写用户名和真实姓名</li>
+                            <li>勾选同意用户协议</li>
+                            <li>点击"注册"按钮完成注册</li>
+                        </ol>
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>提示：</strong> 如果未设置用户名，系统将自动使用手机号作为用户名。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2: 手机号已注册 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 提示"该手机号已被注册"怎么办？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 可能有以下几种情况：</strong></p>
+                        <ul>
+                            <li>您之前已经注册过账户，请直接尝试登录</li>
+                            <li>手机号被他人误用注册，请联系客服解决</li>
+                            <li>如果您忘记密码，请使用"忘记密码"功能重置</li>
+                        </ul>
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>注意：</strong> 一个手机号只能注册一个账户。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3: 邮箱已注册 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 提示"该邮箱已被注册"怎么办？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 解决方法：</strong></p>
+                        <ul>
+                            <li>如果您记得该邮箱对应的账户，请直接登录</li>
+                            <li>如果忘记密码，可以使用该邮箱重置密码</li>
+                            <li>可以使用其他邮箱重新注册</li>
+                            <li>如需更换绑定邮箱，请在登录后到"账户设置"中修改</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 登录问题选项卡 -->
+        <div class="tab-content" id="login-tab">
+            <div class="faq-list">
+                <!-- Q1: 无法登录 -->
+                <div class="faq-item" id="login-faq">
+                    <button class="faq-question">
+                        <span>Q: 无法登录账户怎么办？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 请按以下步骤检查：</strong></p>
+                        <ol>
+                            <li><strong>检查网络连接</strong>：确保网络连接正常</li>
+                            <li><strong>确认登录方式</strong>：本平台使用<strong>手机号</strong>登录，不是用户名</li>
+                            <li><strong>验证手机号</strong>：确保输入的是注册时的11位手机号</li>
+                            <li><strong>检查密码</strong>：
+                                <ul>
+                                    <li>密码区分大小写</li>
+                                    <li>确认没有多余空格</li>
+                                    <li>如果忘记密码，请使用"忘记密码"功能</li>
+                                </ul>
+                            </li>
+                            <li><strong>清除浏览器缓存</strong>：尝试清除浏览器缓存后重试</li>
+                            <li><strong>更换浏览器</strong>：尝试使用其他浏览器登录</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- Q2: 登录后自动退出 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 为什么登录后会自动退出？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 可能的原因：</strong></p>
+                        <ul>
+                            <li><strong>未勾选"记住我"</strong>：如果不勾选此选项，关闭浏览器后需要重新登录</li>
+                            <li><strong>浏览器设置</strong>：某些浏览器设置为关闭后自动清除Cookie</li>
+                            <li><strong>登录超时</strong>：长时间不操作可能导致会话过期</li>
+                            <li><strong>多设备登录</strong>：同一账户在多设备登录可能导致异常</li>
+                        </ul>
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>解决办法：</strong> 登录时勾选"记住我"选项，并检查浏览器Cookie设置。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3: 第三方登录 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 支持哪些第三方登录方式？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 当前支持的第三方登录：</strong></p>
+                        <div class="social-login-help">
+                            <div class="social-item">
+                                <i class="fab fa-weixin"></i>
+                                <span>微信登录</span>
+                            </div>
+                            <div class="social-item">
+                                <i class="fab fa-qq"></i>
+                                <span>QQ登录</span>
+                            </div>
+                            <div class="social-item">
+                                <i class="fab fa-weibo"></i>
+                                <span>微博登录</span>
+                            </div>
+                        </div>
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>注意：</strong> 第三方登录功能正在开发中，敬请期待。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 密码问题选项卡 -->
+        <div class="tab-content" id="password-tab">
+            <div class="faq-list">
+                <!-- Q1: 忘记密码 -->
+                <div class="faq-item" id="password-faq">
+                    <button class="faq-question">
+                        <span>Q: 忘记密码怎么办？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 重置密码方法：</strong></p>
+                        <ol>
+                            <li>在登录页面点击"忘记密码？"链接</li>
+                            <li>输入您注册时使用的手机号</li>
+                            <li>系统将向您的注册邮箱发送重置链接</li>
+                            <li>检查邮箱并点击重置链接</li>
+                            <li>设置新的密码（至少8位，包含字母和数字）</li>
+                            <li>使用新密码登录</li>
+                        </ol>
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>重要：</strong> 如果您也忘记了注册邮箱，请联系客服人工处理。
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2: 密码要求 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 密码设置有什么要求？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 密码安全要求：</strong></p>
+                        <ul>
+                            <li><strong>长度要求</strong>：至少8个字符</li>
+                            <li><strong>复杂度要求</strong>：必须包含字母和数字</li>
+                            <li><strong>禁止使用</strong>：
+                                <ul>
+                                    <li>纯数字密码（如：12345678）</li>
+                                    <li>纯字母密码（如：password）</li>
+                                    <li>连续字符（如：abcdefgh）</li>
+                                    <li>简单重复（如：11111111）</li>
+                                </ul>
+                            </li>
+                            <li><strong>推荐使用</strong>：
+                                <ul>
+                                    <li>大小写字母组合</li>
+                                    <li>包含特殊字符（如：!@#$%）</li>
+                                    <li>避免使用个人信息</li>
+                                    <li>定期更换密码</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Q3: 修改密码 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 如何修改密码？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 修改密码步骤：</strong></p>
+                        <ol>
+                            <li>登录您的账户</li>
+                            <li>进入"个人中心" → "账户设置"</li>
+                            <li>在"修改密码"区域填写：
+                                <ul>
+                                    <li>当前密码</li>
+                                    <li>新密码（符合密码要求）</li>
+                                    <li>确认新密码</li>
+                                </ul>
+                            </li>
+                            <li>点击"修改密码"按钮保存</li>
+                            <li>下次登录时使用新密码</li>
+                        </ol>
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>安全提示：</strong> 建议每3-6个月修改一次密码。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 手机号问题选项卡 -->
+        <div class="tab-content" id="phone-tab">
+            <div class="faq-list">
+                <!-- Q1: 手机号格式 -->
+                <div class="faq-item" id="phone-faq">
+                    <button class="faq-question">
+                        <span>Q: 手机号格式有什么要求？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 手机号要求：</strong></p>
+                        <ul>
+                            <li><strong>格式要求</strong>：必须是11位数字</li>
+                            <li><strong>号码类型</strong>：支持中国大陆三大运营商的手机号</li>
+                            <li><strong>有效性</strong>：必须是有效的手机号格式</li>
+                            <li><strong>验证规则</strong>：系统会检查手机号格式是否正确</li>
+                        </ul>
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>示例：</strong> 正确的手机号格式：15228134150（11位纯数字）
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2: 换手机号 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 换了手机号怎么办？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 手机号更换流程：</strong></p>
+                        <ol>
+                            <li><strong>重要提醒</strong>：目前平台<strong>不支持</strong>在线更换手机号</li>
+                            <li>如果您更换了手机号，需要联系客服人工处理</li>
+                            <li>请准备好以下信息：
+                                <ul>
+                                    <li>原手机号</li>
+                                    <li>注册时使用的邮箱</li>
+                                    <li>账户相关证明材料</li>
+                                </ul>
+                            </li>
+                            <li>联系客服邮箱：3502449120@qq.com</li>
+                            <li>客服将在1-3个工作日内为您处理</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- Q3: 收不到验证码 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q: 收不到短信验证码？</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>A: 可能的原因和解决方法：</strong></p>
+                        <ul>
+                            <li><strong>网络延迟</strong>：请等待1-2分钟，短信可能有延迟</li>
+                            <li><strong>信号问题</strong>：确保手机信号良好</li>
+                            <li><strong>短信屏蔽</strong>：检查是否被手机安全软件拦截</li>
+                            <li><strong>运营商问题</strong>：某些运营商可能有短信过滤</li>
+                            <li><strong>手机存储已满</strong>：清理手机短信存储空间</li>
+                            <li><strong>频繁请求</strong>：避免短时间内多次请求验证码</li>
+                        </ul>
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>如果以上方法无效：</strong> 请联系客服寻求帮助。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 联系客服 -->
+    <div class="contact-section">
+        <div class="contact-card">
+            <div class="contact-header">
+                <i class="fas fa-headset"></i>
+                <h2>仍然需要帮助？</h2>
+            </div>
+            <p>如果以上解答未能解决您的问题，请随时联系我们的客服团队。</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>客服邮箱</h4>
+                        <p>3502449120@qq.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>客服电话</h4>
+                        <p>152-2813-4150</p>
+                        <small>工作时间：周一至周五 9:00-18:00</small>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>联系地址</h4>
+                        <p>南充市顺庆区西华师范大学</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="emergency-tip">
+                <i class="fas fa-exclamation-circle"></i>
+                <p><strong>紧急情况：</strong> 如遇账户被盗等紧急问题，请立即联系客服并冻结账户。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 选项卡切换功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 选项卡按钮点击事件
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            
+            // 移除所有按钮的激活状态
+            tabBtns.forEach(b => b.classList.remove('active'));
+            // 添加当前按钮的激活状态
+            this.classList.add('active');
+            
+            // 隐藏所有选项卡内容
+            tabContents.forEach(content => content.classList.remove('active'));
+            // 显示对应选项卡内容
+            document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+    });
+    
+    // FAQ展开收起功能
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            // 切换当前FAQ项的展开状态
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                // 关闭其他打开的FAQ
+                const allAnswers = document.querySelectorAll('.faq-answer');
+                const allIcons = document.querySelectorAll('.faq-question i');
+                allAnswers.forEach(a => a.style.display = 'none');
+                allIcons.forEach(i => {
+                    i.classList.remove('fa-chevron-up');
+                    i.classList.add('fa-chevron-down');
+                });
+                
+                // 展开当前FAQ
+                answer.style.display = 'block';
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        });
+    });
+    
+    // 处理URL中的锚点
+    const hash = window.location.hash;
+    if (hash) {
+        const faqId = hash.replace('#', '');
+        const targetFaq = document.getElementById(faqId);
+        if (targetFaq) {
+            // 找到对应的选项卡
+            const tabId = getTabByFaqId(faqId);
+            if (tabId) {
+                switchTab(tabId);
+                
+                // 延迟展开FAQ
+                setTimeout(() => {
+                    const questionBtn = targetFaq.querySelector('.faq-question');
+                    if (questionBtn) {
+                        questionBtn.click();
+                    }
+                }, 300);
+            }
+        }
+    }
+});
+
+// 切换选项卡
+function switchTab(tabId) {
+    const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+    if (tabBtn) {
+        tabBtn.click();
+    }
+}
+
+// 根据FAQ ID获取对应的选项卡
+function getTabByFaqId(faqId) {
+    const faq = document.getElementById(faqId);
+    if (!faq) return null;
+    
+    const tabContent = faq.closest('.tab-content');
+    if (tabContent) {
+        return tabContent.id.replace('-tab', '');
+    }
+    return null;
+}
+
+// 快速问题展示
+function showAnswer(faqId) {
+    const targetFaq = document.getElementById(faqId);
+    if (targetFaq) {
+        const tabId = getTabByFaqId(faqId);
+        if (tabId) {
+            switchTab(tabId);
+            
+            // 延迟滚动和展开
+            setTimeout(() => {
+                targetFaq.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                const questionBtn = targetFaq.querySelector('.faq-question');
+                const answer = targetFaq.querySelector('.faq-answer');
+                const icon = targetFaq.querySelector('.faq-question i');
+                
+                if (answer.style.display !== 'block') {
+                    questionBtn.click();
+                }
+                
+                // 高亮效果
+                targetFaq.style.backgroundColor = '#e8f4fd';
+                targetFaq.style.borderColor = '#87CEEB';
+                setTimeout(() => {
+                    targetFaq.style.backgroundColor = '';
+                    targetFaq.style.borderColor = '#e9ecef';
+                }, 3000);
+            }, 300);
+        }
+    }
+}
+
+// 搜索功能
+function searchLoginHelp() {
+    const searchInput = document.getElementById('login-help-search');
+    const query = searchInput.value.trim().toLowerCase();
+    
+    if (!query) {
+        alert('请输入搜索关键词');
+        return;
+    }
+    
+    // 搜索关键词映射
+    const searchMap = {
+        '注册': 'register',
+        '登录': 'login',
+        '密码': 'password',
+        '忘记密码': 'password',
+        '手机': 'phone',
+        '手机号': 'phone',
+        '验证码': 'phone',
+        '账户': 'register',
+        '账号': 'register'
+    };
+    
+    // 查找匹配的选项卡
+    let foundTab = null;
+    for (const [keyword, tabId] of Object.entries(searchMap)) {
+        if (query.includes(keyword)) {
+            foundTab = tabId;
+            break;
+        }
+    }
+    
+    if (foundTab) {
+        switchTab(foundTab);
+    } else {
+        // 如果没有直接匹配，搜索所有FAQ内容
+        const faqItems = document.querySelectorAll('.faq-item');
+        let found = false;
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+            const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+            
+            if (question.includes(query) || answer.includes(query)) {
+                if (!found) {
+                    // 找到对应的选项卡并切换
+                    const tabId = getTabByFaqId(item.id);
+                    if (tabId) {
+                        switchTab(tabId);
+                        
+                        // 延迟展开和滚动
+                        setTimeout(() => {
+                            item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            const questionBtn = item.querySelector('.faq-question');
+                            if (questionBtn) {
+                                questionBtn.click();
+                            }
+                        }, 300);
+                    }
+                    found = true;
+                }
+                
+                // 高亮所有匹配项
+                item.style.backgroundColor = '#fff3cd';
+                setTimeout(() => {
+                    item.style.backgroundColor = '';
+                }, 5000);
+            }
+        });
+        
+        if (!found) {
+            alert('未找到相关内容，请尝试其他关键词，如：注册、登录、密码、手机号等');
+        }
+    }
+}
+
+// 监听搜索框回车键
+document.getElementById('login-help-search').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        searchLoginHelp();
+    }
+});
+</script>
+{% endblock %}

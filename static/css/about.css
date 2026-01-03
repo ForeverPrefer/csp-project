@@ -1,0 +1,307 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container-fluid {
+    width: 100%;
+}
+
+/* 顶部横幅 */
+.model-img {
+    width: 100%;
+    height: 400px;
+    object-position: center;
+}
+
+/* 主要内容区 */
+.main-content {
+    padding: 60px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 平台介绍卡片 */
+.intro-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.intro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+}
+
+.intro-card p {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* 平台特色区域 */
+.features-section {
+    margin-top: 60px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    color: #2c3e50;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #87CEEB, #1E90FF);
+    border-radius: 2px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #87CEEB, #1E90FF);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 30px;
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* 响应式断点 */
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 95%;
+        padding: 0 20px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* 顶部横幅 */
+    .model-img {
+        height: 300px;
+        object-fit: cover;
+    }
+
+    /* 主要内容区 */
+    .main-content {
+        padding: 40px 0;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    /* 平台介绍卡片 */
+    .intro-card {
+        padding: 25px 20px;
+        margin-bottom: 30px;
+        border-radius: 12px;
+    }
+
+    .intro-card p {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    /* 平台特色区域 */
+    .features-section {
+        margin-top: 40px;
+    }
+
+    .section-title {
+        margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    .section-title h2::after {
+        width: 60px;
+        height: 3px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .feature-card {
+        padding: 25px 20px;
+        border-radius: 10px;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .feature-card p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* 顶部横幅 */
+    .model-img {
+        height: 250px;
+    }
+
+    /* 主要内容区 */
+    .main-content {
+        padding: 30px 0;
+    }
+
+    /* 平台介绍卡片 */
+    .intro-card {
+        padding: 20px 15px;
+        margin-bottom: 25px;
+    }
+
+    .intro-card p {
+        font-size: 0.95rem;
+    }
+
+    /* 平台特色区域 */
+    .features-section {
+        margin-top: 30px;
+    }
+
+    .section-title h2 {
+        font-size: 1.6rem;
+    }
+
+    .feature-card {
+        padding: 20px 15px;
+    }
+
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* 横屏模式优化 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .model-img {
+        height: 200px;
+    }
+
+    .main-content {
+        padding: 30px 0;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 平板设备优化 */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .intro-card {
+        padding: 30px;
+    }
+
+    .intro-card p {
+        font-size: 1.1rem;
+    }
+
+    .feature-card {
+        padding: 25px;
+    }
+}

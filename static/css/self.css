@@ -1,0 +1,1018 @@
+/* 个人中心样式 */
+.pc-container {
+    display: flex;
+    min-height: calc(100vh - 80px);
+    background: #f8f9fa;
+}
+
+/* 侧边栏样式 */
+.pc-sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 0;
+}
+
+.pc-user-profile {
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #87CEEB, #87CEEB, #59acff);
+    color: white;
+    text-align: center;
+}
+
+.pc-avatar {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.pc-user-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+.pc-user-info p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+.pc-side-nav {
+    padding: 20px 0;
+}
+
+.pc-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+.pc-nav-item:hover {
+    background: #f8f9fa;
+    color: #87CEEB;
+    text-decoration: none;
+    font-size: larger;
+}
+
+.pc-nav-item.active {
+    background: #e3f2fd;
+    color: #87CEEB;
+    border-left-color: #87CEEB;
+}
+
+.pc-nav-item i {
+    width: 20px;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.pc-count-badge {
+    background: #87CEEB;
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    margin-left: auto;
+}
+
+/* 主内容区域 */
+.pc-main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.pc-content-header {
+    margin-bottom: 30px;
+}
+
+.pc-content-header h1 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 28px;
+}
+
+.pc-content-header p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
+}
+
+/* 资源卡片 */
+.pc-resources-grid, .pc-favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.pc-resource-card, .pc-favorite-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.pc-resource-card:hover, .pc-favorite-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.pc-resource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.pc-resource-title {
+    margin: 0;
+    flex: 1;
+}
+
+.pc-resource-title a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.pc-resource-title a:hover {
+    color: #1E90FF;
+    text-decoration: none;
+}
+
+.pc-resource-type {
+    background: #e3f2fd;
+    color: #1976D2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.pc-resource-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    color: #666;
+}
+
+.pc-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pc-resource-desc {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.pc-resource-actions, .pc-favorite-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* 下载列表 */
+.pc-downloads-list {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.pc-download-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s ease;
+}
+
+.pc-download-item:hover {
+    background: #f8f9fa;
+}
+
+.pc-download-item:last-child {
+    border-bottom: none;
+}
+
+.pc-download-icon {
+    width: 40px;
+    height: 40px;
+    background: #e3f2fd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: #2196F3;
+}
+
+.pc-download-info {
+    flex: 1;
+}
+
+.pc-download-info h4 {
+    margin: 0 0 8px 0;
+}
+
+.pc-download-info h4 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.pc-download-info h4 a:hover {
+    color: #1E90FF;
+    text-decoration: none;
+}
+
+.pc-download-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    color: #666;
+}
+
+.pc-download-actions {
+    margin-left: 15px;
+}
+
+/* 空状态 */
+.pc-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.pc-empty-state i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.pc-empty-state h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.pc-empty-state p {
+    margin: 0 0 20px 0;
+}
+
+/* 设置表单 */
+.pc-settings-container {
+    max-width: 600px;
+}
+
+.pc-settings-section {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.pc-settings-section h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pc-settings-form {
+    max-width: 400px;
+}
+
+.pc-form-group {
+    margin-bottom: 20px;
+}
+
+.pc-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.pc-form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.pc-form-control:focus {
+    outline: none;
+    border-color: #1E90FF;
+    box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.1);
+}
+
+.pc-form-text {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* 账户统计 */
+.pc-account-stats {
+    display: grid;
+    gap: 15px;
+}
+
+.pc-stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pc-stat-item:last-child {
+    border-bottom: none;
+}
+
+.pc-stat-label {
+    color: #666;
+}
+
+.pc-stat-value {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 按钮样式 */
+.pc-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pc-btn-primary {
+    background: linear-gradient(135deg, #87CEEB, #1E90FF);
+    color: white;
+}
+
+.pc-btn-primary:hover {
+    background: linear-gradient(135deg, #1E90FF, #87CEEB);
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.pc-btn-outline {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #666;
+    text-decoration: none;
+}
+
+.pc-btn-outline:hover {
+    border-color: #1E90FF;
+    color: #1E90FF;
+    text-decoration: none;
+}
+
+.pc-btn-admin {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #666;
+    text-decoration: none;
+}
+
+.pc-btn-admin:hover {
+    border-color: #1E90FF;
+    color: #1E90FF;
+    text-decoration: none;
+}
+
+/* 消息提示样式 */
+.messages-container {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 90%;
+    max-width: 500px;
+    pointer-events: none;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease-out;
+    pointer-events: auto;
+    min-height: 60px;
+    position: relative;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+.alert-icon {
+    margin-right: 12px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.alert-text {
+    flex: 1;
+    font-weight: 500;
+}
+
+.alert-close {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-left: 12px;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+.alert-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 消息类型样式 */
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+}
+
+.alert-success .alert-icon {
+    color: #0f5132;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-danger .alert-icon {
+    color: #721c24;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+}
+
+.alert-warning .alert-icon {
+    color: #856404;
+}
+
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border: 1px solid #b6effb;
+}
+
+.alert-info .alert-icon {
+    color: #055160;
+}
+
+/* 分页样式 */
+.pc-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.pc-pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.pc-pagination-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pc-page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pc-page-link:hover:not(.disabled):not(.active) {
+    background: var(--primary-color);
+    color: #87CEEB;
+    border-color: var(--primary-color);
+}
+
+.pc-page-link.active {
+    background: var(--primary-color);
+    color: #87CEEB;
+    border-color: var(--primary-color);
+}
+
+.pc-page-link.disabled {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* 响应式断点 */
+@media screen and (max-width: 1024px) {
+    .pc-container {
+        min-height: calc(100vh - 60px);
+    }
+
+    .pc-sidebar {
+        width: 250px;
+    }
+
+    .pc-main-content {
+        padding: 25px;
+    }
+
+    .pc-resources-grid, .pc-favorites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 18px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .pc-container {
+        flex-direction: column;
+    }
+
+    /* 侧边栏样式 */
+    .pc-sidebar {
+        width: 100%;
+        box-shadow: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .pc-user-profile {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-align: left;
+    }
+
+    .pc-avatar {
+        font-size: 40px;
+        margin-bottom: 0;
+    }
+
+    .pc-user-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 3px;
+    }
+
+    .pc-user-info p {
+        font-size: 0.9rem;
+    }
+
+    .pc-side-nav {
+        display: flex;
+        overflow-x: auto;
+        padding: 10px 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .pc-side-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .pc-nav-item {
+        padding: 12px 20px;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        flex-shrink: 0;
+    }
+
+    .pc-nav-item.active {
+        border-left-color: transparent;
+        border-bottom-color: #87CEEB;
+    }
+
+    .pc-nav-item i {
+        margin-right: 8px;
+        font-size: 14px;
+    }
+
+    .pc-count-badge {
+        margin-left: 8px;
+    }
+
+    /* 主内容区域 */
+    .pc-main-content {
+        padding: 20px;
+    }
+
+    .pc-content-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .pc-content-header p {
+        font-size: 0.95rem;
+    }
+
+    /* 资源卡片 */
+    .pc-resources-grid, .pc-favorites-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .pc-resource-card, .pc-favorite-card {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .pc-resource-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .pc-resource-title {
+        width: 100%;
+    }
+
+    .pc-resource-title a {
+        font-size: 1.1rem;
+    }
+
+    .pc-resource-type {
+        align-self: flex-start;
+    }
+
+    .pc-resource-meta {
+        gap: 12px;
+        font-size: 0.85rem;
+    }
+
+    .pc-resource-desc {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .pc-resource-actions, .pc-favorite-actions {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    /* 下载列表 */
+    .pc-downloads-list {
+        border-radius: 8px;
+    }
+
+    .pc-download-item {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .pc-download-icon {
+        margin-right: 0;
+        align-self: center;
+    }
+
+    .pc-download-info {
+        width: 100%;
+    }
+
+    .pc-download-info h4 {
+        margin-bottom: 5px;
+    }
+
+    .pc-download-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .pc-download-actions {
+        margin-left: 0;
+        width: 100%;
+        display: flex;
+        gap: 10px;
+    }
+
+    /* 空状态 */
+    .pc-empty-state {
+        padding: 40px 15px;
+    }
+
+    .pc-empty-state i {
+        font-size: 48px;
+    }
+
+    .pc-empty-state h3 {
+        font-size: 1.3rem;
+    }
+
+    .pc-empty-state p {
+        font-size: 0.95rem;
+    }
+
+    /* 设置表单 */
+    .pc-settings-container {
+        max-width: 100%;
+    }
+
+    .pc-settings-section {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .pc-settings-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .pc-settings-form {
+        max-width: 100%;
+    }
+
+    .pc-form-group {
+        margin-bottom: 15px;
+    }
+
+    .pc-form-control {
+        padding: 8px 10px;
+        font-size: 0.95rem;
+    }
+
+    /* 账户统计 */
+    .pc-account-stats {
+        gap: 12px;
+    }
+
+    .pc-stat-item {
+        padding: 8px 0;
+        font-size: 0.95rem;
+    }
+
+    /* 按钮样式 */
+    .pc-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 分页样式 */
+    .pc-pagination {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        margin-top: 25px;
+    }
+
+    .pc-pagination-info {
+        order: 2;
+        text-align: center;
+    }
+
+    .pc-pagination-controls {
+        order: 1;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pc-page-link {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    /* 消息提示样式 */
+    .messages-container {
+        width: 95%;
+        top: 80px;
+    }
+
+    .alert {
+        padding: 12px 15px;
+        min-height: 50px;
+    }
+
+    .alert-icon {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+
+    .alert-text {
+        font-size: 0.9rem;
+    }
+
+    .alert-close {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .pc-user-profile {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .pc-avatar {
+        font-size: 32px;
+    }
+
+    .pc-user-info h3 {
+        font-size: 1rem;
+    }
+
+    .pc-user-info p {
+        font-size: 0.85rem;
+    }
+
+    .pc-nav-item {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .pc-nav-item i {
+        font-size: 12px;
+    }
+
+    .pc-count-badge {
+        font-size: 10px;
+        padding: 1px 6px;
+    }
+
+    .pc-content-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .pc-content-header p {
+        font-size: 0.9rem;
+    }
+
+    .pc-resource-card, .pc-favorite-card {
+        padding: 12px;
+    }
+
+    .pc-resource-title a {
+        font-size: 1rem;
+    }
+
+    .pc-resource-meta {
+        font-size: 0.8rem;
+        gap: 10px;
+    }
+
+    .pc-resource-desc {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    }
+
+    .pc-download-item {
+        padding: 12px;
+    }
+
+    .pc-download-info h4 a {
+        font-size: 0.95rem;
+    }
+
+    .pc-download-meta {
+        font-size: 0.8rem;
+    }
+
+    .pc-empty-state {
+        padding: 30px 15px;
+    }
+
+    .pc-empty-state i {
+        font-size: 40px;
+    }
+
+    .pc-empty-state h3 {
+        font-size: 1.2rem;
+    }
+
+    .messages-container {
+        top: 70px;
+    }
+}
+
+/* 横屏模式优化 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .pc-container {
+        flex-direction: row;
+    }
+
+    .pc-sidebar {
+        width: 220px;
+        border-bottom: none;
+        border-right: 1px solid #eee;
+    }
+
+    .pc-side-nav {
+        flex-direction: column;
+        overflow-x: visible;
+        overflow-y: auto;
+    }
+
+    .pc-user-profile {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .pc-avatar {
+        margin-bottom: 10px;
+    }
+}
+
+/* 平板设备优化 */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .pc-sidebar {
+        width: 240px;
+    }
+
+    .pc-main-content {
+        padding: 25px;
+    }
+
+    .pc-resources-grid, .pc-favorites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+}

@@ -1,0 +1,649 @@
+/* 资源详情页样式 */
+.resource-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 返回导航 */
+.back-nav {
+    margin-bottom: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #87CEEB;
+    text-decoration: none;
+}
+
+/* 详情卡片 */
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+/* 头部 */
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.title-section {
+    flex: 1;
+}
+
+.resource-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
+
+.resource-type-badge {
+    background: linear-gradient(135deg, #87CEEB 0%, #1E90FF 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.download-main-btn {
+    background: linear-gradient(135deg, #87CEEB, #1E90FF);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.download-main-btn:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 132, 176, 0.3);
+    color: white;
+}
+
+/* 元信息网格 */
+.resource-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.meta-item:hover {
+    transform: translateY(-2px);
+}
+
+.meta-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #87CEEB 0%, #1E90FF 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.meta-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.meta-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.meta-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.file-format {
+    background: #1E90FF;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* 卡片通用样式 */
+.file-info-card,
+.description-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.file-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #666;
+    min-width: 80px;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 描述内容 */
+.description-content {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* 操作按钮组 */
+.action-buttons-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.action-btn.primary {
+    background: linear-gradient(135deg, #87CEEB, #1E90FF);
+    text-decoration: none;
+    color: white;
+}
+
+.action-btn.secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.action-btn.outline {
+    background: transparent;
+    color: #87CEEB;
+    border: 2px solid #1E90FF;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    text-decoration: none;
+}
+
+.action-btn.outline:hover {
+    background: linear-gradient(135deg, #87CEEB, #1E90FF);
+    border: 2px solid white;
+    color: white;
+}
+
+/* 相关资源 */
+.related-resources {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.related-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.related-card:hover {
+    transform: translateY(-2px);
+}
+
+.related-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.related-title {
+    margin: 0;
+    flex: 1;
+}
+
+.related-title a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.related-title a:hover {
+    color: #1E90FF;
+}
+
+.related-badge {
+    background: #6c757d;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+}
+
+.related-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+}
+
+.no-related {
+    text-align: center;
+    color: #666;
+    padding: 40px;
+}
+
+.resource-title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.resource-title-link:hover {
+    color: #87CEEB;
+}
+
+/* 收藏按钮样式 */
+.action-btn.favorited {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+    border: none;
+}
+
+.action-btn.favorited:hover {
+    background: linear-gradient(135deg, #FFA500, #FF8C00);
+    transform: translateY(-2px);
+}
+
+.fas.fa-star {
+    transition: all 0.3s ease;
+}
+
+/* 消息样式 */
+.message {
+    animation: slideIn 0.3s ease;
+}
+
+/* 响应式断点 */
+@media screen and (max-width: 1024px) {
+    .resource-detail-container {
+        max-width: 95%;
+        padding: 0 20px;
+    }
+
+    .detail-card {
+        padding: 25px;
+    }
+
+    .related-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* 返回导航 */
+    .back-nav {
+        margin-bottom: 15px;
+    }
+
+    .back-link {
+        font-size: 0.9rem;
+        padding: 8px 0;
+    }
+
+    /* 详情卡片 */
+    .detail-card {
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    /* 头部 */
+    .detail-header {
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+    }
+
+    .title-section {
+        width: 100%;
+    }
+
+    .resource-title {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+
+    .resource-type-badge {
+        font-size: 0.8rem;
+        padding: 3px 10px;
+    }
+
+    .download-main-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* 元信息网格 */
+    .resource-meta-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .meta-item {
+        padding: 12px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .meta-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .meta-content {
+        align-items: center;
+    }
+
+    .meta-label {
+        font-size: 0.75rem;
+        margin-bottom: 3px;
+    }
+
+    .meta-value {
+        font-size: 0.95rem;
+    }
+
+    .file-format {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+    }
+
+    /* 卡片通用样式 */
+    .file-info-card,
+    .description-card {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .file-details {
+        gap: 8px;
+    }
+
+    .file-detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .detail-label {
+        min-width: auto;
+        font-size: 0.85rem;
+    }
+
+    .detail-value {
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    /* 描述内容 */
+    .description-content {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* 操作按钮组 */
+    .action-buttons-group {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* 相关资源 */
+    .related-resources {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .related-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .related-card {
+        padding: 15px;
+    }
+
+    .related-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .related-title a {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+
+    .related-badge {
+        align-self: flex-start;
+        font-size: 0.7rem;
+        padding: 1px 6px;
+    }
+
+    .related-meta {
+        font-size: 0.8rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .no-related {
+        padding: 30px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .resource-detail-container {
+        padding: 0 15px;
+    }
+
+    .detail-card {
+        padding: 15px;
+    }
+
+    .resource-title {
+        font-size: 1.4rem;
+    }
+
+    .resource-meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .meta-item {
+        flex-direction: row;
+        text-align: left;
+        padding: 10px;
+    }
+
+    .meta-icon {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+    }
+
+    .meta-content {
+        align-items: flex-start;
+    }
+
+    .file-info-card,
+    .description-card {
+        padding: 12px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .description-content {
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .related-resources {
+        padding: 15px;
+    }
+
+    .related-card {
+        padding: 12px;
+    }
+
+    .related-title a {
+        font-size: 0.95rem;
+    }
+}
+
+/* 横屏模式优化 */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .resource-meta-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .action-buttons-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        flex: 1;
+        min-width: calc(50% - 6px);
+    }
+}
+
+/* 平板设备优化 */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .resource-meta-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
