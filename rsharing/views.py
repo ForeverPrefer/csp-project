@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from upzy.models import Resource
-from django.shortcuts import get_object_or_404, redirect
-from django.http import FileResponse, Http404
-from django.contrib import messages
 import os
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import FileResponse, Http404, JsonResponse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from CSP.utils import paginate
+from upzy.models import Resource
+from .models import Favorite
 
 @login_required
 def resource_detail(request, resource_id):
@@ -70,61 +71,47 @@ def download_resource(request, resource_id):
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response
 
-from django.shortcuts import render
-from upzy.models import Resource
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def resource_list(request, resource_type):
     """通用资源列表视图，根据参数过滤数据"""
-    # 定义资源类型对应的差异化配置（增加索引index）
     type_config = {
         '文档资料': {
             'title': '文档资料',
             'subtitle': '共享学习文档、笔记、资料等',
             'empty_icon': 'fa-file-alt',
             'empty_text': '还没有人上传文档资料，快来分享你的第一份资料吧！',
-            'index': 1  # 对应轮播图第1项
+            'index': 1,
         },
         '软件工具': {
             'title': '软件工具',
             'subtitle': '实用的软件和工具资源',
             'empty_icon': 'fa-tools',
             'empty_text': '还没有人上传软件工具，快来分享你的第一个工具吧！',
-            'index': 2  # 对应轮播图第2项
+            'index': 2,
         },
         '学习教程': {
             'title': '学习教程',
             'subtitle': '各类学习教程和课程资料',
             'empty_icon': 'fa-graduation-cap',
             'empty_text': '还没有人上传学习教程，快来分享你的第一个教程吧！',
-            'index': 3  # 对应轮播图第3项
+            'index': 3,
         },
         '模板资源': {
             'title': '模板资源',
             'subtitle': '各类文档模板和设计资源',
             'empty_icon': 'fa-copy',
             'empty_text': '还没有人上传模板资源，快来分享你的第一个模板吧！',
-            'index': 4  # 对应轮播图第4项
+            'index': 4,
         }
     }
 
     # 获取当前资源类型的配置
     config = type_config.get(resource_type, type_config['文档资料'])
     
-    # 获取该类型的所有资源并按上传时间倒序排列
-    resources_list = Resource.objects.filter(resource_type=resource_type).select_related('uploader').order_by('-upload_time')
-    
-    # 分页设置 - 每页6条
-    paginator = Paginator(resources_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        resources = paginator.page(page)
-    except PageNotAnInteger:
-        resources = paginator.page(1)
-    except EmptyPage:
-        resources = paginator.page(paginator.num_pages)
-    
+    resources_list = Resource.objects.filter(
+        resource_type=resource_type
+    ).select_related('uploader').order_by('-upload_time')
+    resources = paginate(request, resources_list, 6)
     return render(request, 'resource_list.html', {
         'resources': resources,
         'activmenu': 'rsharing',
@@ -133,12 +120,9 @@ def resource_list(request, resource_type):
         'empty_icon': config['empty_icon'],
         'empty_text': config['empty_text'],
         'carousel_index': config['index'],
-        'resource_type': resource_type  # 传递资源类型用于分页链接
+        'resource_type': resource_type,
     })
 
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from .models import Resource, Favorite
 
 @login_required
 def toggle_favorite(request, resource_id):

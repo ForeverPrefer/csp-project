@@ -1,23 +1,13 @@
 from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
+from CSP.utils import paginate
 from upzy.models import Resource
 from rsharing.models import Favorite
 
 def new(request):
     """最新资源 - 按上传时间排序"""
     resources_list = Resource.objects.all().select_related('uploader').order_by('-upload_time')
-    
-    # 分页设置 - 每页6条
-    paginator = Paginator(resources_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        resources = paginator.page(page)
-    except PageNotAnInteger:
-        resources = paginator.page(1)
-    except EmptyPage:
-        resources = paginator.page(paginator.num_pages)
-    
+    resources = paginate(request, resources_list, 6)
     context = {
         'activmenu': 'flview',
         'resources': resources,
@@ -31,18 +21,7 @@ def new(request):
 def down(request):
     """热门下载 - 按下载次数排序"""
     resources_list = Resource.objects.all().select_related('uploader').order_by('-download_count')
-    
-    # 分页设置 - 每页6条
-    paginator = Paginator(resources_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        resources = paginator.page(page)
-    except PageNotAnInteger:
-        resources = paginator.page(1)
-    except EmptyPage:
-        resources = paginator.page(paginator.num_pages)
-    
+    resources = paginate(request, resources_list, 6)
     context = {
         'activmenu': 'flview',
         'resources': resources,
@@ -58,8 +37,7 @@ def xz(request):
     # 获取下载数前50的资源
     top_downloads = Resource.objects.all().order_by('-download_count')[:50]
     
-    # 获取收藏数前50的资源（需要计算每个资源的收藏数）
-    from django.db.models import Count
+    # 获取收藏数前50的资源
     top_favorites = Resource.objects.annotate(
         favorite_count=Count('favorite')
     ).order_by('-favorite_count')[:50]
@@ -74,17 +52,7 @@ def xz(request):
         id__in=intersection_ids
     ).select_related('uploader').order_by('-upload_time')
     
-    # 分页设置 - 每页6条
-    paginator = Paginator(resources_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        resources = paginator.page(page)
-    except PageNotAnInteger:
-        resources = paginator.page(1)
-    except EmptyPage:
-        resources = paginator.page(paginator.num_pages)
-    
+    resources = paginate(request, resources_list, 6)
     context = {
         'activmenu': 'flview',
         'resources': resources,

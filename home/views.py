@@ -1,17 +1,16 @@
 from django.shortcuts import render
-from upzy.models import Resource
-from django.db.models import Q, Sum, Count
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q, Sum, Count
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
+from CSP.utils import paginate
+from upzy.models import Resource
 
 def home(request):
     """首页视图 - 在首页直接分页显示搜索结果"""
     query = request.GET.get('q', '').strip()
-    page = request.GET.get('page', 1)  # 获取页码参数
-    
+
     # 获取统计数据（无论是否搜索都需要）
     total_resources = Resource.objects.count()
     total_downloads = Resource.objects.aggregate(total=Sum('download_count'))['total'] or 0
@@ -26,15 +25,7 @@ def home(request):
         ).select_related('uploader').order_by('-upload_time')
         
         total_results = search_results.count()
-        
-        # 使用分页器，每页6个结果
-        paginator = Paginator(search_results, 6)
-        try:
-            search_results_page = paginator.page(page)
-        except PageNotAnInteger:
-            search_results_page = paginator.page(1)
-        except EmptyPage:
-            search_results_page = paginator.page(paginator.num_pages)
+        search_results_page = paginate(request, search_results, 6)
         
         context = {
             'activmenu': 'home',

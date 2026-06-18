@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from CSP.utils import paginate
 from upzy.models import Resource
 from rsharing.models import Favorite
 from .models import DownloadHistory
@@ -10,17 +11,7 @@ def wdzy(request):
     """我的资源页面"""
     resources_list = Resource.objects.filter(uploader=request.user).order_by('-upload_time')
     
-    # 分页设置 - 每页6条
-    paginator = Paginator(resources_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        resources = paginator.page(page)
-    except PageNotAnInteger:
-        resources = paginator.page(1)
-    except EmptyPage:
-        resources = paginator.page(paginator.num_pages)
-    
+    resources = paginate(request, resources_list, 6)
     context = {
         'activmenu': 'self',
         'resources': resources,
@@ -33,17 +24,7 @@ def wdxz(request):
     """我的下载页面"""
     downloads_list = DownloadHistory.objects.filter(user=request.user).select_related('resource').order_by('-downloaded_at')
     
-    # 分页设置 - 每页4条
-    paginator = Paginator(downloads_list, 4)
-    page = request.GET.get('page')
-    
-    try:
-        downloads = paginator.page(page)
-    except PageNotAnInteger:
-        downloads = paginator.page(1)
-    except EmptyPage:
-        downloads = paginator.page(paginator.num_pages)
-    
+    downloads = paginate(request, downloads_list, 4)
     context = {
         'activmenu': 'self',
         'downloads': downloads,
@@ -56,17 +37,7 @@ def sc(request):
     """收藏夹页面"""
     favorites_list = Favorite.objects.filter(user=request.user).select_related('resource').order_by('-created_at')
     
-    # 分页设置 - 每页6条
-    paginator = Paginator(favorites_list, 6)
-    page = request.GET.get('page')
-    
-    try:
-        favorites = paginator.page(page)
-    except PageNotAnInteger:
-        favorites = paginator.page(1)
-    except EmptyPage:
-        favorites = paginator.page(paginator.num_pages)
-    
+    favorites = paginate(request, favorites_list, 6)
     context = {
         'activmenu': 'self',
         'favorites': favorites,
@@ -78,7 +49,6 @@ def sc(request):
 def sz(request):
     """账户设置页面"""
     user = request.user
-    from django.contrib import messages  # 移到顶部
     
     if request.method == 'POST':
         has_changes = False  # 标记是否有实际修改
